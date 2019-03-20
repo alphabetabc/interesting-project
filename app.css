@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+cite {
+  display: block;
+}
+
+#input {
+  margin: 20px;
+  width: auto;
+}
+
+#input::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+#input table {
+  border-collapse: collapse;
+}
+
+#input table td {
+  width: 100px;
+  text-align: center;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+#input span {
+  width: 100px;
+  display: inline-block;
+  text-align: right;
+}
+
+#form {
+  background: #228B22;
+  color: #fff;
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#output {
+  overflow: hidden;
+  width: 1000px;
+  height: 500px;
+  padding: 5px;
+  margin-left: 30px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-shadow: #000 0 0 5px 5px;
+}
+
+#output table {
+  border-collapse: collapse;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+  background: #191970;
+  color: #fff;
+}
+
+#output table td {
+  border: 1px solid #FFF0F5;
+  padding: 0 5px;
+  font-size: 14px;
+  min-width: 85px;
+  text-align: center;
+  line-height: 20px;
+}
+
+#output table tbody tr:hover {
+  background: #778899
+}
+
+#output table tbody td {
+  line-height: 30px;
+}
+
+#standard-wrap {
+  background: #228B22;
+  color: #fff;
+  width: 300px;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
