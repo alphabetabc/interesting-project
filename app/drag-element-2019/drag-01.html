@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>drag</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      border: 1px solid #000;
+      position: absolute;
+      left: 30px;
+      top: 50px;
+      width: 1000px;
+      height: 800px;
+    }
+
+    #dragEl {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      left: 10px;
+      top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="dragEl"></div>
+  </div>
+</body>
+
+</html>
+<script type="module">
+  import './drag-01.js';
+</script>

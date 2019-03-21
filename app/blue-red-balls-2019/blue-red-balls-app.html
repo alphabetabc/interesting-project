@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>random</title>
+  <link rel="stylesheet" href="./blue-red-balls-app.css">
+</head>
+
+<body>
+  <button id="btn">fetch</button>
+  
+  <div id="wrapper">
+    <table class="table" id="blue">
+      <thead>
+        <tr>
+          <th>01</td>
+          <th>02</td>
+          <th>03</td>
+          <th>04</td>
+          <th>05</td>
+          <th>06</td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <table class="table" id="red">
+      <thead>
+        <tr>
+          <th>07</td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="result">
+    <h2>过滤随机号 <button id="filterBtn">filterBtn</button></h2>
+    <br>
+    上一次号码：
+    <input id="pre-res" value="06,09,11,15,20,26,10"><br>
+    红球：
+    <span id='blue-ball'></span>
+    <br>
+    篮球：
+    <span id='red-ball'></span>
+  </div>
+</body>
+
+</html>
+<script src='./blue-red-balls-app.js' type='module'></script>
