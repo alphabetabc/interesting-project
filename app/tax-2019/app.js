@@ -1,15 +1,15 @@
 import { select } from "./../../common/util-dom.js";
 
 const form = select("#form");
-const output = select("#output");
+const output = select("#root");
 
 const standard = select("#standard");
-const salary = select("#salary");
-const free01 = select("#free01");
-const free02 = select("#free02");
+// const salary = select("#salary");
+// const free01 = select("#free01");
+// const free02 = select("#free02");
 
 const monthNumbers = new Array(12).fill(0).map((d, i) => i + 1);
-const headData = ["月份", "工资", "五险一金", "专项扣除", "累计额度", "预扣率", "速算扣除数", "参与扣税的工资", "税费", "到手工资", "税费占比"];
+const columnsData = ["月份", "工资", "五险一金", "专项扣除", "累计额度", "预扣率", "速算扣除数", "参与扣税的工资", "税费", "到手工资", "税费占比"];
 
 form.onsubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ createTable();
 
 function createThead() {
     const tr = output.querySelector("thead>tr");
-    headData.forEach((d) => {
+    columnsData.forEach((d) => {
         const td = document.createElement("td");
         td.innerHTML = d;
         tr.appendChild(td);
@@ -29,9 +29,11 @@ function createThead() {
 }
 
 function createTable() {
-    const salaryValue = +salary.value;
-    const free01Value = +free01.value;
-    const free02Value = +free02.value;
+    const formData = new FormData(form);
+
+    const salaryValue = +formData.get("salary");
+    const free01Value = +formData.get("free01");
+    const free02Value = +formData.get("free02");
     const standardValue = +standard.value;
     const sumValues = [0];
     const tbody = output.querySelector("tbody");
@@ -62,7 +64,7 @@ function createTable() {
         rowData.forEach((d, i) => {
             const td = document.createElement("td");
             td.innerHTML = d;
-            td.setAttribute("title", `${headData[i]}:${d}`);
+            td.setAttribute("title", `${columnsData[i]}:${d}`);
             tr.appendChild(td);
         });
 

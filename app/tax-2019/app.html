@@ -1,94 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>tax-2019</title>
+        <link rel="stylesheet" href="./app.css" />
+    </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>tax-2019</title>
-  <link rel="stylesheet" href="./app.css">
-</head>
-
-<body>
-  <div style="margin: 20px;">
-    <cite>
-      经供参考，请以实际到手工资为准
-    </cite>
-    <cite>
-      预交应纳税所得 = 累计收入-三险一金-专项附加的扣除基准-其他扣除-费用扣除标准
-    </cite>
-  </div>
-  <div id="input">
-    <div style="float:left">
-      <div id="standard-wrap">
-        <span class="name">基准：</span> <input type="text" id="standard" value="5000">
-      </div>
-      <form id="form">
-        <span class="name">工资：</span> <input type="text" id="salary" value="30000"> <br>
-        <span class="name">五险一金：</span> <input type="text" id="free01" value="4500"> <br>
-        <span class="name">专项扣除：</span> <input type="text" id="free02" value="2000">
-        <button type="submit" style="margin-left:20px;padding:2px 15px;">计算</button>
-      </form>
-    </div>
-    <div style="float:left;margin-left: 30px;">
-      <table>
-        <thead>
-          <tr>
-            <td style="width:350px;">累计预扣预缴应纳税所得额</td>
-            <td>预扣率</td>
-            <td>速算扣除数</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>v 小于等于 36000</td>
-            <td>3%</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>v 大于 36000 && v 小于等于 144000</td>
-            <td>10%</td>
-            <td>2520</td>
-          </tr>
-          <tr>
-            <td>v 大于 144000 && v 小于等于 300000</td>
-            <td>20%</td>
-            <td>16920</td>
-          </tr>
-          <tr>
-            <td>v 大于 300000 && v 小于等于 420000</td>
-            <td>25%</td>
-            <td>31920</td>
-          </tr>
-          <tr>
-            <td>v 大于 420000 && v 小于等于 660000</td>
-            <td>30%</td>
-            <td>52920</td>
-          </tr>
-          <tr>
-            <td>v 大于 660000 && v 小于等于 960000</td>
-            <td>35%</td>
-            <td>85920</td>
-          </tr>
-          <tr>
-            <td>v 大于 960000 </td>
-            <td>45%</td>
-            <td>181920</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div id="output">
-    <h2 style="text-align:center;margin-bottom: 10px;">全年工资估算</h2>
-    <table>
-      <thead>
-        <tr></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</body>
-
+    <body>
+        <div style="margin: 20px">
+            <cite> 经供参考，请以实际到手工资为准 </cite>
+            <cite> 预交应纳税所得 = 累计收入-三险一金-专项附加的扣除基准-其他扣除-费用扣除标准 </cite>
+        </div>
+        <div id="input">
+            <div style="float: left">
+                <div id="standard-wrap"><span class="name">基准：</span> <input type="text" id="standard" value="5000" /></div>
+                <form id="form">
+                    <label for="salary">
+                        <span class="name">工资：</span>
+                        <input type="text" id="salary" name="salary" value="30000" />
+                    </label>
+                    <br />
+                    <label for="free01">
+                        <span class="name">五险一金：</span>
+                        <input type="text" id="free01" name="free01" value="4500" />
+                    </label>
+                    <br />
+                    <label for="free02">
+                        <span class="name">专项扣除：</span>
+                        <input type="text" id="free02" name="free02" value="2000" />
+                    </label>
+                    <button type="submit" style="margin-left: 20px; padding: 2px 15px">计算</button>
+                </form>
+            </div>
+            <div style="float: left; margin-left: 30px">
+                <table>
+                    <thead>
+                        <tr>
+                            <td style="width: 350px">累计预扣预缴应纳税所得额</td>
+                            <td>预扣率</td>
+                            <td>速算扣除数</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>v 小于等于 36000</td>
+                            <td>3%</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 36000 && v 小于等于 144000</td>
+                            <td>10%</td>
+                            <td>2520</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 144000 && v 小于等于 300000</td>
+                            <td>20%</td>
+                            <td>16920</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 300000 && v 小于等于 420000</td>
+                            <td>25%</td>
+                            <td>31920</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 420000 && v 小于等于 660000</td>
+                            <td>30%</td>
+                            <td>52920</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 660000 && v 小于等于 960000</td>
+                            <td>35%</td>
+                            <td>85920</td>
+                        </tr>
+                        <tr>
+                            <td>v 大于 960000</td>
+                            <td>45%</td>
+                            <td>181920</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="root">
+            <h2 style="text-align: center; margin-bottom: 10px">全年工资估算</h2>
+            <table>
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </body>
 </html>
 <script type="module" src="./app.js"></script>
