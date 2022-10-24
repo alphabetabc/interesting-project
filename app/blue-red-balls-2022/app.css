@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    min-width: 1920px;
+    min-height: 1080px;
+}
+
+main {
+    padding: 10px;
+}
+
+.blue-red-balls-table {
+    border-collapse: collapse;
+    font-family: verdana, arial, sans-serif;
+    font-size: 15px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #666666;
+    margin: 30px 0;
+}
+
+.blue-red-balls-table tr {
+    line-height: 35px;
+}
+
+.blue-red-balls-table thead tr th,
+.blue-red-balls-table td {
+    width: 100px;
+    border: 1px solid #333333;
+    text-align: center;
+}
+
+.blue-red-balls-table td .ball_blue,
+.blue-red-balls-table td .ball_red {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    line-height: 25px;
+    background: radial-gradient(circle at 80% 25%, rgba(255, 204, 0, 0.729), red);
+    color: #fff;
+    font-weight: bold;
+}
+
+.blue-red-balls-table td .ball_blue {
+    background: radial-gradient(circle at 80% 25%, rgba(0, 195, 255, 0.3), blue);
+}
