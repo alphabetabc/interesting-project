@@ -47,10 +47,14 @@ class BlueRedBalls extends AbstractApp {
     redBalls = new UniqueSet();
 
     initAction = () => {
-        const btn = this.root.append("button").text("generator random").style("line-height", "30px").style("padding", "10px");
-        btn.on("click", () => {
-            this.renderBalls();
-        });
+        this.root
+            .append("button")
+            .text("GENERATOR BALLS")
+            .style("line-height", "30px")
+            .style("padding", "10px")
+            .on("click", () => {
+                this.renderBalls();
+            });
     };
 
     initTable = () => {
@@ -70,11 +74,13 @@ class BlueRedBalls extends AbstractApp {
     };
 
     renderBalls = async () => {
-        const blueBalls = await fetchRandom({ count: 6, extends: [1, 33] });
-        const redBalls = await fetchRandom({ count: 1, extends: [1, 16] });
+        const blueBalls = await fetchRandom({ count: 6, extent: [1, 33] });
+        const redBalls = await fetchRandom({ count: 1, extent: [1, 16] });
 
         this.blueBalls.push(blueBalls);
         this.redBalls.push(redBalls);
+
+        console.log(redBalls);
 
         this.setState({
             balls: {
