@@ -5,6 +5,7 @@ const localRandom = (config) => {
     const uniqueRandom = new Set(base);
 
     if (uniqueRandom.size >= count) {
+        base.sort((a, b) => a - b);
         return base.slice(0, count);
     }
 
@@ -12,7 +13,6 @@ const localRandom = (config) => {
     while (uniqueRandom.size < count) {
         uniqueRandom.add(gen());
     }
-
     return [...uniqueRandom].sort((a, b) => a - b);
 };
 
@@ -56,16 +56,20 @@ export const fetchRandom = async (config = {}) => {
         const num = text
             .split(/\t|\n/)
             .filter(Boolean)
-            .map((row) => {
-                return row
-                    .split(/\t/)
-                    .filter(Boolean)
-                    .map((d) => Number(d.trim()));
-            });
+            .map((d) => Number(d));
 
-        const uniqueNum = [...new Set(num)];
+        const uniqueNum = [...new Set(num.flat(1))];
         return localRandom({ ...config, base: uniqueNum });
     } catch (e) {
         return Promise.resolve(localRandom(config));
     }
 };
+
+export class UniqueSet extends Set {
+    push(...values) {
+        values.flat(Infinity).forEach((v) => {
+            this.add(v);
+        });
+        return this;
+    }
+}

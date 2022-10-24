@@ -1,6 +1,6 @@
 import * as d3 from "https://cdn.skypack.dev/d3@latest";
 import { AbstractApp } from "../../common/app.js";
-import { fetchRandom } from "./utils.js";
+import { fetchRandom, UniqueSet } from "./utils.js";
 
 const COLUMNS = [
     {
@@ -43,8 +43,11 @@ class BlueRedBalls extends AbstractApp {
     table = null;
     tableBody = null;
 
+    blueBalls = new UniqueSet();
+    redBalls = new UniqueSet();
+
     initAction = () => {
-        const btn = this.root.append("button").text("refresh");
+        const btn = this.root.append("button").text("generator random").style("line-height", "30px").style("padding", "10px");
         btn.on("click", () => {
             this.renderBalls();
         });
@@ -70,6 +73,9 @@ class BlueRedBalls extends AbstractApp {
         const blueBalls = await fetchRandom({ count: 6, extends: [1, 33] });
         const redBalls = await fetchRandom({ count: 1, extends: [1, 16] });
 
+        this.blueBalls.push(blueBalls);
+        this.redBalls.push(redBalls);
+
         this.setState({
             balls: {
                 blue: blueBalls,
@@ -81,6 +87,7 @@ class BlueRedBalls extends AbstractApp {
     init() {
         this.root = d3.select(this.domElement);
 
+        // this.initPicker();
         this.initAction();
         this.initTable();
         this.renderBalls();
@@ -99,7 +106,11 @@ class BlueRedBalls extends AbstractApp {
                 .append("td")
                 .append("span")
                 .attr("class", (d) => (d.type === "blue" ? "ball_blue" : "ball_red"))
-                .text((d, i) => list[i]);
+                .text(0)
+                .transition()
+                .duration(1000)
+                .ease(d3.easeLinear)
+                .textTween((d, i) => d3.interpolateRound(0, list[i]));
         }
     }
 }

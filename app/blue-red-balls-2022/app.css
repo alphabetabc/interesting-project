@@ -8,10 +8,15 @@ body {
     height: 100vh;
     min-width: 1920px;
     min-height: 1080px;
+    overflow: hidden;
 }
 
 main {
     padding: 10px;
+}
+
+.picker-container span {
+    margin: 5px;
 }
 
 .blue-red-balls-table {
@@ -22,6 +27,7 @@ main {
     border-width: 1px;
     border-color: #666666;
     margin: 30px 0;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .blue-red-balls-table tr {
