@@ -80,8 +80,6 @@ class BlueRedBalls extends AbstractApp {
         this.blueBalls.push(blueBalls);
         this.redBalls.push(redBalls);
 
-        console.log(redBalls);
-
         this.setState({
             balls: {
                 blue: blueBalls,

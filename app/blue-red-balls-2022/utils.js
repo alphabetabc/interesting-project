@@ -25,6 +25,8 @@ const api = async (url, option) => {
     return response;
 };
 
+const RANDOM_ORG = "https://www.random.org/integers/";
+
 /**
  * 随机数
  * @param {{count:number; extent:[number, number]}} config
@@ -35,7 +37,7 @@ export const fetchRandom = async (config = {}) => {
     const option = {
         method: "GET",
     };
-    const baseUrl = "https://www.random.org/integers/";
+
     const parameters = {
         num: count,
         min,
@@ -51,7 +53,7 @@ export const fetchRandom = async (config = {}) => {
         .join("&");
 
     try {
-        const res = await api(`${baseUrl}?${queryParams}`, option);
+        const res = await api(`${RANDOM_ORG}?${queryParams}`, option);
         const text = await res.text();
         const num = text
             .split(/\t|\n/)
