@@ -5,3 +5,4 @@
 3. [蓝红球-random](https://alphabetabc.github.io/interesting-project/app/blue-red-balls-2019/blue-red-balls-app.html)
 4. [蓝红球-random-2022](https://alphabetabc.github.io/interesting-project/app/blue-red-balls-2022)
 5. [3D 模型查看-threejs](https://alphabetabc.github.io/interesting-project/app/model-viewer)
+6. [使用 webrtc 截图](https://alphabetabc.github.io/interesting-project/app/webrtc-snapshot)
