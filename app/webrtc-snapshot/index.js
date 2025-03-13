@@ -7,8 +7,7 @@ var __classPrivateFieldGet =
         return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     };
 var _SnapShotByRTCController_events, _SnapShotByRTCController_emit, _SnapShotByRTCController_state;
-
-// import * as d3 from "d3";
+// import * as d3 from 'd3';
 const events = ["stopShare", "finished"];
 class SnapShotByRTCController {
     constructor() {
@@ -55,6 +54,18 @@ class SnapShotByRTCController {
             const canvasElement = canvas.node();
             __classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").canvasElement = canvasElement;
             __classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").canvasContext = canvasElement.getContext("2d");
+            const brush = d3.brush();
+            const svg = root
+                .append("svg")
+                .style("position", "absolute")
+                .style("left", 0)
+                .style("top", 0)
+                .style("width", `${__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").mediaWidth}px`)
+                .style("height", `${__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").mediaHeight}px`)
+                .attr("width", `${__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").mediaWidth}`)
+                .attr("height", `${__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").mediaHeight}`)
+                .append("g")
+                .call(brush);
             const video = d3.create("video").style("display", "none").attr("autoplay", true).attr("muted", true);
             const videoElement = video.node();
             __classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").videoElement = videoElement;
@@ -83,58 +94,43 @@ class SnapShotByRTCController {
                         videoElement.videoHeight / __classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").mediaHeight;
                 }
             });
-            const pointerClickRef = {
-                delayTimer: null,
-            };
-            canvas
-                .on("mousedown", (e) => {
-                    if (!__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").enableSnapFlag) {
-                        return;
-                    }
-                    /**
-                     * 单双击时，会先触发mousedown，再触发dblclick
-                     */
-                    clearTimeout(pointerClickRef.delayTimer);
-                    pointerClickRef.delayTimer = setTimeout(() => {
-                        const [x, y] = d3.pointer(e);
-                        snapDataObject.startX = x;
-                        snapDataObject.startY = y;
-                        snapDataObject.snapping = true;
-                    }, 500);
-                    // this.renderVideo();
+            brush
+                .on("start", (e) => {
+                    const [x, y] = e.selection[0];
+                    snapDataObject.startX = x;
+                    snapDataObject.startY = y;
+                    snapDataObject.snapping = true;
                 })
-                .on("mousemove", (e) => {
+                .on("brush", (e) => {
                     if (!__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").enableSnapFlag || !snapDataObject.snapping) {
                         return;
                     }
-                    const [x, y] = d3.pointer(e);
-                    snapDataObject.width = x - snapDataObject.startX;
-                    snapDataObject.height = y - snapDataObject.startY;
+                    const [[x1, y1], [x2, y2]] = e.selection;
+                    snapDataObject.startX = x1;
+                    snapDataObject.startY = y1;
+                    snapDataObject.width = x2 - x1;
+                    snapDataObject.height = y2 - y1;
                     this.renderRuntimeSnapshot(snapDataObject);
                 })
-                .on("mouseup", (e) => {
-                    if (!__classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").enableSnapFlag || !snapDataObject.snapping) {
-                        return;
-                    }
-                    snapDataObject.snapping = false;
-                    this.renderRuntimeSnapshot(snapDataObject);
-                })
-                .on("dblclick", () => {
-                    clearTimeout(pointerClickRef.delayTimer);
+                .on("end", (e) => {
                     this.renderSnapshot(snapDataObject);
                     snapDataObject.snapping = false;
                 });
             d3.select(document)
                 .on("dblclick", () => {
-                    clearTimeout(pointerClickRef.delayTimer);
                     this.renderSnapshot(snapDataObject);
+                    this.stopShare();
                     snapDataObject.snapping = false;
                 })
                 .on("mouseup", () => {
                     snapDataObject.snapping = false;
                 });
+            svg.on("dblclick", () => {
+                this.renderSnapshot(snapDataObject);
+                this.stopShare();
+                snapDataObject.snapping = false;
+            });
             __classPrivateFieldGet(this, _SnapShotByRTCController_state, "f").removeList.push(() => {
-                canvas.on("mousedown", null).on("mousemove", null).on("mouseup", null).on("dblclick", null);
                 d3.select(document).on("dblclick", null).on("mouseup", null);
                 root.remove();
                 snapDataObject.snapping = false;
@@ -245,12 +241,15 @@ class SnapShotByRTCController {
 const root = d3
     .select("#root")
     .style("outline", "auto")
-    .html('<div style="color:#fff;font-size:30px;" >暂无截图结果<button id="btn" style="font-size:30px">截图</button></div>');
-root.select("#btn").on("click", () => {
-    SnapShotByRTCController.snapShot().on("finished", (e) => {
-        const root = d3.select("#root");
-        root.selectAll("*").remove();
-        root.style("width", `${e.data.width}px`).style("height", `${e.data.height}px`);
-        root.append("img").attr("src", e.data.image);
+    .style("user-select", "none")
+    .html('<div style="color:#fff;font-size:30px;" ><button id="btn" style="font-size:30px">截图</button></div>');
+root.select("#btn")
+    .style("position", "fixed")
+    .on("click", () => {
+        SnapShotByRTCController.snapShot().on("finished", (e) => {
+            const root = d3.select("#root");
+            root.selectAll("img").remove();
+            root.style("width", `${e.data.width}px`).style("height", `${e.data.height}px`);
+            root.append("img").attr("src", e.data.image).style("user-select", "none");
+        });
     });
-});
